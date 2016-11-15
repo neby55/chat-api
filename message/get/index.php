@@ -11,15 +11,15 @@ if ($userId > 0) {
 		$sql = '
 			SELECT mes_text AS message, usr_username AS username, mes_inserted AS createdAt
 			FROM message
-			WHERE usr_id = :userId
-			AND roo_id = :roomId
+			INNER JOIN user ON user.usr_id = message.usr_id
+			WHERE roo_id = :roomId
 		';
 		if ($since > 0) {
 			$sql .= ' AND UNIX_TIMESTAMP(mes_inserted) > :since';
 		}
 		$stmt = $pdo->prepare($sql);
 
-		$stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+		//$stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
 		$stmt->bindValue(':roomId', $roomId, PDO::PARAM_INT);
 		if ($since > 0) {
 			$stmt->bindValue(':since', $since, PDO::PARAM_INT);

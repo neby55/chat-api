@@ -7,12 +7,12 @@ $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
 if (!empty($username)) {
 	if (!empty($password)) {
-		if (strlen($username) < 4) {
-			if (strlen($password) < 8) {
+		if (strlen($username) >= 4) {
+			if (strlen($password) >= 8) {
 				$sql = '
-					SELECT usr_id
+					SELECT usr_id, usr_password, usr_username
 					FROM user
-					WHERE username = :username
+					WHERE usr_username = :username
 					LIMIT 1
 				';
 				$stmt = $pdo->prepare($sql);
