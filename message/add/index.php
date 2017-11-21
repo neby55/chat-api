@@ -4,7 +4,7 @@ require '../../inc/config.php';
 $error = '';
 $userId = isset($_POST['user']) ? intval(trim($_POST['user'])) : 0;
 $roomId = isset($_POST['room']) ? intval(trim($_POST['room'])) : 0;
-$message = isset($_POST['message']) ? trim($_POST['message']) : '';
+$message = isset($_POST['message']) ? strip_tags(trim($_POST['message'])) : '';
 
 if ($message != '') {
 	if ($userId > 0) {

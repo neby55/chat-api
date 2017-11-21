@@ -2,7 +2,7 @@
 require '../../inc/config.php';
 
 $error = '';
-$roomName = isset($_POST['room']) ? trim($_POST['room']) : '';
+$roomName = isset($_POST['room']) ? strip_tags(trim($_POST['room'])) : '';
 
 if (!empty($roomName)) {
 	$sql = '
@@ -10,7 +10,7 @@ if (!empty($roomName)) {
 	';
 	$stmt = $pdo->prepare($sql);
 
-	$stmt->bindValue(':roomName', $roomId);
+	$stmt->bindValue(':roomName', $roomName);
 
 	if ($stmt->execute() === false) {
 		$error .= print_r($stmt->errorInfo(), 1);
